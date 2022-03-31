@@ -8,9 +8,11 @@ bool RobotTweezers::Protobuf::UartWrite(HardwareSerial *uart, const pb_msgdesc_t
     
     ostream = pb_ostream_from_buffer(buffer, MAX_MESSAGE_SIZE);
     
+    // Encode stream
     if (pb_encode(&ostream, fields, data_struct) == true)
     {
         status = true;
+        // Write size of message as first byte, then write buffer
         uart->write(ostream.bytes_written);
         for (size_t i = 0; i < ostream.bytes_written; i++)
         {
