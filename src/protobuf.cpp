@@ -26,7 +26,7 @@ bool RobotTweezers::Protobuf::UartRead(HardwareSerial *uart, const pb_msgdesc_t 
     pb_byte_t buffer[MAX_MESSAGE_SIZE];
     pb_istream_t istream;
     size_t size;
-    bool status = true;
+    bool status = false;
 
     if (uart->available() > 0)
     {
@@ -39,15 +39,7 @@ bool RobotTweezers::Protobuf::UartRead(HardwareSerial *uart, const pb_msgdesc_t 
         }
 
         istream = pb_istream_from_buffer(buffer, size);
-
-        if (pb_decode(&istream, fields, data_struct) == false)
-        {
-            status = false;
-        }
-    }
-    else
-    {
-        status = false;
+        status = pb_decode(&istream, fields, data_struct);
     }
 
     return status;
