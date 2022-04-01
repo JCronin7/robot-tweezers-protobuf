@@ -7,9 +7,13 @@
 #include <pb_decode.h>
 
 #include <orientation_msg.pb.h>
+#include <uart_connection.pb.h>
 
 #define MAX_MESSAGE_SIZE 64U
 #define PROTOBUF_INTERFACE_BAUDRATE 921600U
+
+#define TEENSY_ID 0x80
+#define ESP32_ID 0xA0
 
 namespace RobotTweezers
 {
@@ -62,6 +66,26 @@ namespace RobotTweezers
          * @return false            Unsuccessful transfer 
          */
         static bool UartRead(HardwareSerial *uart, OrientationMsg *orientation_msg);
+
+        /**
+         * @brief Write an UartConnection message over UART
+         * 
+         * @param uart              Uart bus to use for transfer
+         * @param connection_msg    Struct containing connection information
+         * @return true             Successful encoding and transfer
+         * @return false            Unsuccessful transfer 
+         */
+        static bool UartWrite(HardwareSerial *uart, const UartConnection *connection_msg);
+
+        /**
+         * @brief Read an UartConnection message over UART
+         * 
+         * @param uart              Uart bus to use for transfer
+         * @param connection_msg    UartConnection struct to populate 
+         * @return true             Successful decoding and transfer
+         * @return false            Unsuccessful transfer 
+         */
+        static bool UartRead(HardwareSerial *uart, UartConnection *connection_msg);
     };
 }
 

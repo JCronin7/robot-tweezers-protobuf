@@ -56,3 +56,13 @@ bool RobotTweezers::Protobuf::UartRead(HardwareSerial *uart, OrientationMsg *ori
 {
     return UartRead(uart, OrientationMsg_fields, orientation_msg);
 }
+
+bool RobotTweezers::Protobuf::UartWrite(HardwareSerial *uart, const UartConnection *connection_msg)
+{
+    return UartWrite(uart, UartConnection_fields, connection_msg);
+}
+
+bool RobotTweezers::Protobuf::UartRead(HardwareSerial *uart, UartConnection *connection_msg)
+{
+    return UartRead(uart, UartConnection_fields, connection_msg);
+}
